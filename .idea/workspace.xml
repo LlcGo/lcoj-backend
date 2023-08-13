@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0cec131e-0923-4091-9042-4f0490e8502d" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/mevan/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="D:\mevan\apache-maven-3.6.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2TupKs6mdrGx6bUGAMxQ7ZxGROl" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RunManager" selected="Spring Boot.MainApplication">
+    <configuration name="MainApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="lcoj-backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.lc.oj.MainApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="lcoj-backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.yupi.springbootinit.MainApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+    <option name="showServicesTree" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0cec131e-0923-4091-9042-4f0490e8502d" name="Default Changelist" comment="" />
+      <created>1691902758617</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1691902758617</updated>
+      <workItem from="1691902761703" duration="290000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="624" y="184" key="FileChooserDialogImpl" timestamp="1691903210931">
+      <screen x="0" y="0" width="1600" height="852" />
+    </state>
+    <state x="624" y="184" key="FileChooserDialogImpl/0.0.1600.852@0.0.1600.852" timestamp="1691903210931" />
+    <state x="301" y="68" key="SettingsEditor" timestamp="1691903183480">
+      <screen x="0" y="0" width="1600" height="852" />
+    </state>
+    <state x="301" y="68" key="SettingsEditor/0.0.1600.852@0.0.1600.852" timestamp="1691903183480" />
+    <state x="476" y="9" width="786" height="834" key="find.popup" timestamp="1691903008626">
+      <screen x="0" y="0" width="1600" height="852" />
+    </state>
+    <state x="476" y="9" width="786" height="834" key="find.popup/0.0.1600.852@0.0.1600.852" timestamp="1691903008626" />
+    <state x="463" y="173" key="search.everywhere.popup" timestamp="1691902823447">
+      <screen x="0" y="0" width="1600" height="852" />
+    </state>
+    <state x="463" y="173" key="search.everywhere.popup/0.0.1600.852@0.0.1600.852" timestamp="1691902823447" />
+  </component>
+</project>
