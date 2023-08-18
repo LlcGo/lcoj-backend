@@ -1,25 +1,28 @@
-package com.lc.oj.model.entity;
+package com.lc.oj.model.dto.question;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.lc.oj.common.PageRequest;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import com.lc.oj.model.dto.question.JudgeCase;
-import com.lc.oj.model.dto.question.JudgeConfig;
-import lombok.Data;
+import java.util.List;
 
 /**
- * 提目表
- * @TableName question
+ * 查询请求
+ *
+
  */
-@TableName(value ="question")
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class Question implements Serializable {
+public class QuestionQueryRequest extends PageRequest implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -35,7 +38,7 @@ public class Question implements Serializable {
     /**
      * 标签列表（json 数组）
      */
-    private String tags;
+    private List<String> tags;
 
     /**
      * 题目答案
@@ -55,7 +58,7 @@ public class Question implements Serializable {
     /**
      * 判题用例（json）
      */
-    private JudgeCase judgeCase;
+    private List<JudgeCase> judgeCase;
 
     /**
      * 判题配置(json)
@@ -77,22 +80,6 @@ public class Question implements Serializable {
      */
     private Long userId;
 
-    /**
-     * 创建时间
-     */
-    private Date createTime;
 
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
 
-    /**
-     * 是否删除
-     */
-    @TableLogic
-    private Integer isDelete;
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 }
