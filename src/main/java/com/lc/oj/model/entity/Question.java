@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.lc.oj.model.dto.question.JudgeCase;
 import com.lc.oj.model.dto.question.JudgeConfig;
+import jdk.internal.dynalink.linker.LinkerServices;
 import lombok.Data;
 
 /**
@@ -55,12 +57,12 @@ public class Question implements Serializable {
     /**
      * 判题用例（json）
      */
-    private JudgeCase judgeCase;
+    private String judgeCase;
 
     /**
      * 判题配置(json)
      */
-    private JudgeConfig judgeConfig;
+    private String judgeConfig;
 
     /**
      * 点赞数

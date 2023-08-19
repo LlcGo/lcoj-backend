@@ -1,5 +1,7 @@
 package com.lc.oj.model.dto.questionsubmit;
 
+import lombok.Data;
+
 /**
  * @Author Lc
  * @Date 2023/8/16
@@ -7,7 +9,7 @@ package com.lc.oj.model.dto.questionsubmit;
  * @ClassName: JudgeInfo
  * @Description: 判题信息
  */
-
+@Data
 public class JudgeInfo {
 
     /**

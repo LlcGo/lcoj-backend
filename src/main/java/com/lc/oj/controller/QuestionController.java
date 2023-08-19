@@ -10,10 +10,8 @@ import com.lc.oj.common.ResultUtils;
 import com.lc.oj.constant.UserConstant;
 import com.lc.oj.exception.BusinessException;
 import com.lc.oj.exception.ThrowUtils;
-import com.lc.oj.model.dto.question.QuestionAddRequest;
-import com.lc.oj.model.dto.question.QuestionEditRequest;
-import com.lc.oj.model.dto.question.QuestionQueryRequest;
-import com.lc.oj.model.dto.question.QuestionUpdateRequest;
+import com.lc.oj.model.dto.question.*;
+import com.lc.oj.model.dto.user.UserQueryRequest;
 import com.lc.oj.model.entity.Question;
 import com.lc.oj.model.entity.User;
 import com.lc.oj.model.vo.QuestionVO;
@@ -65,9 +63,15 @@ public class QuestionController {
         if (tags != null) {
             question.setTags(GSON.toJson(tags));
         }
+        List<JudgeCase> judgeCase = questionAddRequest.getJudgeCase();
+        if(judgeCase != null){
+            question.setJudgeCase(GSON.toJson(judgeCase));
+        }
+        JudgeConfig judgeConfig = questionAddRequest.getJudgeConfig();
+        if(judgeConfig != null){
+            question.setJudgeConfig(GSON.toJson(judgeConfig));
+        }
         questionService.validQuestion(question, true);
-        String judgeConfig = question.getJudgeConfig();
-        String judgeCase = question.getJudgeCase();
         User loginUser = userService.getLoginUser(request);
         question.setUserId(loginUser.getId());
         question.setFavourNum(0);
@@ -120,6 +124,14 @@ public class QuestionController {
         List<String> tags = questionUpdateRequest.getTags();
         if (tags != null) {
             question.setTags(GSON.toJson(tags));
+        }
+        List<JudgeCase> judgeCase = questionUpdateRequest.getJudgeCase();
+        if(judgeCase != null){
+            question.setJudgeCase(GSON.toJson(judgeCase));
+        }
+        JudgeConfig judgeConfig = questionUpdateRequest.getJudgeConfig();
+        if(judgeConfig != null){
+            question.setJudgeConfig(GSON.toJson(judgeConfig));
         }
         // 参数校验
         questionService.validQuestion(question, false);
@@ -214,6 +226,7 @@ public class QuestionController {
         if (tags != null) {
             question.setTags(GSON.toJson(tags));
         }
+
         // 参数校验
         questionService.validQuestion(question, false);
         User loginUser = userService.getLoginUser(request);
@@ -229,4 +242,14 @@ public class QuestionController {
         return ResultUtils.success(result);
     }
 
+    @PostMapping("/list/page")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public BaseResponse<Page<Question>> listQuestionByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
+                                                   HttpServletRequest request) {
+        long current = questionQueryRequest.getCurrent();
+        long size = questionQueryRequest.getPageSize();
+        Page<Question> userPage = questionService.page(new Page<>(current, size),
+                questionService.getQueryWrapper(questionQueryRequest));
+        return ResultUtils.success(userPage);
+    }
 }

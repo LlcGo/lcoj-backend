@@ -29,7 +29,6 @@ public class QuestionVO implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -138,7 +137,7 @@ public class QuestionVO implements Serializable {
         BeanUtils.copyProperties(question, questionVO);
         questionVO.setTags(GSON.fromJson(question.getTags(), new TypeToken<List<String>>() {
         }.getType()));
-        questionVO.setJudgeConfig(GSON.fromJson(question.getJudgeConfig(),new TypeToken<List<JudgeConfig>>() {
+        questionVO.setJudgeConfig(GSON.fromJson(question.getJudgeConfig(),new TypeToken<JudgeConfig>() {
         }.getType()));
         return questionVO;
     }
