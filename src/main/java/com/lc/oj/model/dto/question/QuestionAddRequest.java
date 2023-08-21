@@ -42,10 +42,7 @@ public class QuestionAddRequest implements Serializable {
      */
     private Integer submitNum;
 
-    /**
-     * 通过数
-     */
-    private Integer acceptedNum;
+
 
     /**
      * 判题用例（json）
@@ -58,10 +55,6 @@ public class QuestionAddRequest implements Serializable {
     private JudgeConfig judgeConfig;
 
 
-    /**
-     * 创建用户 id
-     */
-    private Long userId;
 
 
     @TableField(exist = false)
