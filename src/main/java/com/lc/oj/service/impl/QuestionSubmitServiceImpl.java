@@ -3,10 +3,19 @@ package com.lc.oj.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lc.oj.common.ErrorCode;
 import com.lc.oj.constant.CommonConstant;
 import com.lc.oj.exception.BusinessException;
+import com.lc.oj.judge.JudgeService;
+import com.lc.oj.judge.codesandbox.CodeSandbox;
+import com.lc.oj.judge.codesandbox.CodeSandboxFactory;
+import com.lc.oj.judge.codesandbox.CodeSandboxProxy;
+import com.lc.oj.judge.codesandbox.model.ExecuteCodeRequest;
+import com.lc.oj.judge.codesandbox.model.ExecuteCodeResponse;
 import com.lc.oj.mapper.QuestionSubmitMapper;
+import com.lc.oj.model.dto.question.JudgeCase;
 import com.lc.oj.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.lc.oj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.lc.oj.model.entity.*;
@@ -25,13 +34,18 @@ import com.lc.oj.utils.SqlUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -44,13 +58,19 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         implements QuestionSubmitService {
 
     @Resource
+    @Lazy
+    private JudgeService judgeService;
+
+    @Resource
     private QuestionService questionService;
 
     @Resource
     private UserService userService;
 
+
+
     /**
-     * 点赞
+     * 提交题目
      *
      * @param questionSubmitAddRequest
      * @param loginUser
@@ -71,18 +91,25 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
         Long userId = loginUser.getId();
+        String code = questionSubmitAddRequest.getCode();
         QuestionSubmit questionSubmit = new QuestionSubmit();
-        questionSubmit.setLanguage(questionSubmitAddRequest.getLanguage());
-        questionSubmit.setCode(questionSubmitAddRequest.getCode());
+        questionSubmit.setLanguage(language);
+        questionSubmit.setCode(code);
         questionSubmit.setStatus(QuestionSubmitStatusEnum.WAITING.getValue());
         questionSubmit.setQuestionId(questionId);
         questionSubmit.setUserId(userId);
         questionSubmit.setJudgeInfo("{}");
+
         boolean save = this.save(questionSubmit);
         if(!save){
             throw new BusinessException(ErrorCode.SYSTEM_ERROR,"数据录入失败");
         }
-        return questionSubmit.getId();
+        //加入判题机处理
+        Long questionSubmitId = questionSubmit.getId();
+        CompletableFuture.runAsync(()-> {
+            judgeService.doJudge(questionSubmitId);
+        });
+        return questionSubmitId;
 
     }
 

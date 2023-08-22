@@ -1,15 +1,10 @@
 package com.lc.oj.model.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-
-import com.lc.oj.model.dto.question.JudgeCase;
-import com.lc.oj.model.dto.question.JudgeConfig;
-import jdk.internal.dynalink.linker.LinkerServices;
-import lombok.Data;
 
 /**
  * 提目表

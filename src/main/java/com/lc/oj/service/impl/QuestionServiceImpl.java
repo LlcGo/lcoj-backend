@@ -8,15 +8,13 @@ import com.lc.oj.common.ErrorCode;
 import com.lc.oj.constant.CommonConstant;
 import com.lc.oj.exception.BusinessException;
 import com.lc.oj.exception.ThrowUtils;
-
-import com.lc.oj.model.dto.question.JudgeCase;
-import com.lc.oj.model.dto.question.JudgeConfig;
+import com.lc.oj.mapper.QuestionMapper;
 import com.lc.oj.model.dto.question.QuestionQueryRequest;
-import com.lc.oj.model.entity.*;
+import com.lc.oj.model.entity.Question;
+import com.lc.oj.model.entity.User;
 import com.lc.oj.model.vo.QuestionVO;
 import com.lc.oj.model.vo.UserVO;
 import com.lc.oj.service.QuestionService;
-import com.lc.oj.mapper.QuestionMapper;
 import com.lc.oj.service.UserService;
 import com.lc.oj.utils.SqlUtils;
 import org.apache.commons.collections4.CollectionUtils;
@@ -26,7 +24,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
