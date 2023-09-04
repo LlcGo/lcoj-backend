@@ -14,13 +14,13 @@ import com.lc.oj.judge.codesandbox.impl.ThirdPartyCodeSandbox;
 
 public class CodeSandboxFactory {
 
-    public static CodeSandbox newInstance(String type){
-        switch (type){
-            case  "example" :
+    public static CodeSandbox newInstance(String type) {
+        switch (type) {
+            case "example":
                 return new ExampleCodeSandbox();
-            case "remote" :
+            case "remote":
                 return new RemoteCodeSandbox();
-            case "thirdParty" :
+            case "thirdParty":
                 return new ThirdPartyCodeSandbox();
             default:
                 return new ExampleCodeSandbox();

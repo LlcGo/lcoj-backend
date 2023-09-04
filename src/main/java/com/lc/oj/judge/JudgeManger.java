@@ -3,7 +3,7 @@ package com.lc.oj.judge;
 import com.lc.oj.judge.strategy.DefaultJudgeStrategy;
 import com.lc.oj.judge.strategy.JudgeContext;
 import com.lc.oj.judge.strategy.JudgeStrategy;
-import com.lc.oj.model.dto.questionsubmit.JudgeInfo;
+import com.lc.oj.judge.codesandbox.model.JudgeInfo;
 import com.lc.oj.model.entity.QuestionSubmit;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
  * @Description:
  */
 @Service
-public class JudgeManger  {
+public class JudgeManger {
 
-    public JudgeInfo doJudge(JudgeContext context){
+    public JudgeInfo doJudge(JudgeContext context) {
         QuestionSubmit questionSubmit = context.getQuestionSubmit();
         String language = questionSubmit.getLanguage();
         JudgeStrategy judgeStrategy = new DefaultJudgeStrategy();
-        if("java".equals(language)){
-           judgeStrategy = new DefaultJudgeStrategy();
+        if ("java".equals(language)) {
+            judgeStrategy = new DefaultJudgeStrategy();
         }
         return judgeStrategy.doJudge(context);
     }

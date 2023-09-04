@@ -1,14 +1,14 @@
 package com.lc.oj.model.dto.user;
 
 import com.lc.oj.common.PageRequest;
+
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * 用户查询请求
- *
-
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

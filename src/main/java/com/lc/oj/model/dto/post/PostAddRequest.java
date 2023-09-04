@@ -2,12 +2,11 @@ package com.lc.oj.model.dto.post;
 
 import java.io.Serializable;
 import java.util.List;
+
 import lombok.Data;
 
 /**
  * 创建请求
- *
-
  */
 @Data
 public class PostAddRequest implements Serializable {

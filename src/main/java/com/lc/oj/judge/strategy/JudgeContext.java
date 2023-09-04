@@ -1,7 +1,7 @@
 package com.lc.oj.judge.strategy;
 
 import com.lc.oj.model.dto.question.JudgeCase;
-import com.lc.oj.model.dto.questionsubmit.JudgeInfo;
+import com.lc.oj.judge.codesandbox.model.JudgeInfo;
 import com.lc.oj.model.entity.Question;
 import com.lc.oj.model.entity.QuestionSubmit;
 import lombok.Data;

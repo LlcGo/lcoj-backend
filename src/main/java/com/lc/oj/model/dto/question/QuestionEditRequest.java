@@ -12,8 +12,6 @@ import java.util.List;
 
 /**
  * 编辑请求
- *
-
  */
 @Data
 public class QuestionEditRequest implements Serializable {
@@ -49,7 +47,6 @@ public class QuestionEditRequest implements Serializable {
      * 创建用户 id
      */
     private Long userId;
-
 
 
     @TableField(exist = false)

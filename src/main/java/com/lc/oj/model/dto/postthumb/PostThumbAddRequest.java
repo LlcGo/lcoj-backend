@@ -1,12 +1,11 @@
 package com.lc.oj.model.dto.postthumb;
 
 import java.io.Serializable;
+
 import lombok.Data;
 
 /**
  * 帖子点赞请求
- *
-
  */
 @Data
 public class PostThumbAddRequest implements Serializable {

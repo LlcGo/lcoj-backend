@@ -9,7 +9,6 @@ import java.io.Serializable;
 
 /**
  * 创建请求
- *
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -43,7 +42,6 @@ public class QuestionSubmitQueryRequest extends PageRequest implements Serializa
      * 这个题目是哪个用户提交的
      */
     private Long userId;
-
 
 
     @TableField(exist = false)

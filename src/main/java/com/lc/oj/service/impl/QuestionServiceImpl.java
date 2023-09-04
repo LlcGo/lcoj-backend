@@ -34,13 +34,12 @@ import java.util.stream.Collectors;
  */
 @Service
 public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
-    implements QuestionService{
+        implements QuestionService {
 
     private final static Gson GSON = new Gson();
 
     @Resource
     private UserService userService;
-
 
 
     @Override
@@ -114,7 +113,6 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
                 sortField);
         return queryWrapper;
     }
-
 
 
     @Override

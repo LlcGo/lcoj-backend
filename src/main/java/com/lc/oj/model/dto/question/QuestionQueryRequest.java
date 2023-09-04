@@ -14,8 +14,6 @@ import java.util.List;
 
 /**
  * 查询请求
- *
-
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -79,7 +77,6 @@ public class QuestionQueryRequest extends PageRequest implements Serializable {
      * 创建用户 id
      */
     private Long userId;
-
 
 
 }

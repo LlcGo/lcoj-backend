@@ -11,11 +11,16 @@ import com.lc.oj.constant.UserConstant;
 import com.lc.oj.exception.BusinessException;
 import com.lc.oj.exception.ThrowUtils;
 import com.lc.oj.model.dto.question.*;
+import com.lc.oj.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import com.lc.oj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.lc.oj.model.dto.user.UserQueryRequest;
 import com.lc.oj.model.entity.Question;
+import com.lc.oj.model.entity.QuestionSubmit;
 import com.lc.oj.model.entity.User;
+import com.lc.oj.model.vo.QuestionSubmitVO;
 import com.lc.oj.model.vo.QuestionVO;
 import com.lc.oj.service.QuestionService;
+import com.lc.oj.service.QuestionSubmitService;
 import com.lc.oj.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -27,8 +32,6 @@ import java.util.List;
 
 /**
  * 帖子接口
- *
-
  */
 @RestController
 @RequestMapping("/question")
@@ -37,6 +40,9 @@ public class QuestionController {
 
     @Resource
     private QuestionService questionService;
+
+    @Resource
+    private QuestionSubmitService questionSubmitService;
 
     @Resource
     private UserService userService;
@@ -64,11 +70,11 @@ public class QuestionController {
             question.setTags(GSON.toJson(tags));
         }
         List<JudgeCase> judgeCase = questionAddRequest.getJudgeCase();
-        if(judgeCase != null){
+        if (judgeCase != null) {
             question.setJudgeCase(GSON.toJson(judgeCase));
         }
         JudgeConfig judgeConfig = questionAddRequest.getJudgeConfig();
-        if(judgeConfig != null){
+        if (judgeConfig != null) {
             question.setJudgeConfig(GSON.toJson(judgeConfig));
         }
         questionService.validQuestion(question, true);
@@ -126,11 +132,11 @@ public class QuestionController {
             question.setTags(GSON.toJson(tags));
         }
         List<JudgeCase> judgeCase = questionUpdateRequest.getJudgeCase();
-        if(judgeCase != null){
+        if (judgeCase != null) {
             question.setJudgeCase(GSON.toJson(judgeCase));
         }
         JudgeConfig judgeConfig = questionUpdateRequest.getJudgeConfig();
-        if(judgeConfig != null){
+        if (judgeConfig != null) {
             question.setJudgeConfig(GSON.toJson(judgeConfig));
         }
         // 参数校验
@@ -159,7 +165,7 @@ public class QuestionController {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
         User loginUser = userService.getLoginUser(request);
-        if(!question.getUserId().equals(loginUser.getId()) && !userService.isAdmin(loginUser)){
+        if (!question.getUserId().equals(loginUser.getId()) && !userService.isAdmin(loginUser)) {
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
         }
         return ResultUtils.success(question);
@@ -192,7 +198,7 @@ public class QuestionController {
      */
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<QuestionVO>> listQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
-            HttpServletRequest request) {
+                                                               HttpServletRequest request) {
         long current = questionQueryRequest.getCurrent();
         long size = questionQueryRequest.getPageSize();
         // 限制爬虫
@@ -211,7 +217,7 @@ public class QuestionController {
      */
     @PostMapping("/my/list/page/vo")
     public BaseResponse<Page<QuestionVO>> listMyQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
-            HttpServletRequest request) {
+                                                                 HttpServletRequest request) {
         if (questionQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -227,7 +233,6 @@ public class QuestionController {
     }
 
     // endregion
-
 
 
     /**
@@ -267,11 +272,43 @@ public class QuestionController {
     @PostMapping("/list/page")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Page<Question>> listQuestionByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
-                                                   HttpServletRequest request) {
+                                                           HttpServletRequest request) {
         long current = questionQueryRequest.getCurrent();
         long size = questionQueryRequest.getPageSize();
         Page<Question> userPage = questionService.page(new Page<>(current, size),
                 questionService.getQueryWrapper(questionQueryRequest));
         return ResultUtils.success(userPage);
+    }
+
+
+
+
+    /**
+     * 提交题目
+     *
+     * @param questionSubmitAddRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/question_submit/do")
+    public BaseResponse<Long> doThumb(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest,
+                                      HttpServletRequest request) {
+        if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        final User loginUser = userService.getLoginUser(request);
+        long result = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
+        return ResultUtils.success(result);
+    }
+
+    @PostMapping("/question_submit/list/page")
+    public BaseResponse<Page<QuestionSubmitVO>> listQuestionByPage(@RequestBody QuestionSubmitQueryRequest questionSubmitQueryRequest,
+                                                                   HttpServletRequest request) {
+        long current = questionSubmitQueryRequest.getCurrent();
+        long size = questionSubmitQueryRequest.getPageSize();
+        Page<QuestionSubmit> questionSubmitPage = questionSubmitService.page(new Page<>(current, size),
+                questionSubmitService.getQueryWrapper(questionSubmitQueryRequest));
+        User loginUser = userService.getLoginUser(request);
+        return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
     }
 }

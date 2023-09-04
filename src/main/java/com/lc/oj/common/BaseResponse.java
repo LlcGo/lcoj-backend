@@ -1,13 +1,13 @@
 package com.lc.oj.common;
 
 import java.io.Serializable;
+
 import lombok.Data;
 
 /**
  * 通用返回类
  *
  * @param <T>
-
  */
 @Data
 public class BaseResponse<T> implements Serializable {

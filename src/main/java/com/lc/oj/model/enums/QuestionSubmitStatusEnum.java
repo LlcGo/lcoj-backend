@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 
 /**
  * 用户角色枚举
- *
-
  */
 public enum QuestionSubmitStatusEnum {
 
@@ -17,7 +15,7 @@ public enum QuestionSubmitStatusEnum {
     WAITING("待判题", 0),
     RUNNING("判题中", 1),
     SUCCEED("成功", 2),
-    FAIL("失败",3);
+    FAIL("失败", 3);
 
     private final String text;
 

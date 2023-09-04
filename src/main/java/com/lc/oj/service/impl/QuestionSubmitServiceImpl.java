@@ -50,8 +50,6 @@ import java.util.stream.Collectors;
 
 /**
  * 提交题目服务实现
- *
-
  */
 @Service
 public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper, QuestionSubmit>
@@ -68,7 +66,6 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     private UserService userService;
 
 
-
     /**
      * 提交题目
      *
@@ -81,8 +78,8 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
         String language = questionSubmitAddRequest.getLanguage();
         QuestionSubmitLanguaStatusEnum languaStatusEnum = QuestionSubmitLanguaStatusEnum.getEnumByValue(language);
-        if(languaStatusEnum == null){
-            throw new BusinessException(ErrorCode.PARAMS_ERROR,"没有对应的语言");
+        if (languaStatusEnum == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "没有对应的语言");
         }
         Long questionId = questionSubmitAddRequest.getQuestionId();
         // 判断实体是否存在，根据类别获取实体
@@ -101,12 +98,12 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         questionSubmit.setJudgeInfo("{}");
 
         boolean save = this.save(questionSubmit);
-        if(!save){
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR,"数据录入失败");
+        if (!save) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "数据录入失败");
         }
         //加入判题机处理
         Long questionSubmitId = questionSubmit.getId();
-        CompletableFuture.runAsync(()-> {
+        CompletableFuture.runAsync(() -> {
             judgeService.doJudge(questionSubmitId);
         });
         return questionSubmitId;
@@ -143,7 +140,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         QuestionSubmitVO questionSubmitVO = QuestionSubmitVO.objToVo(questionSubmit);
         //如果当前查询的人不是自己提交的题目并且不是管理员，不给返回代码
         Long userId = loginUser.getId();
-        if(!userId.equals(questionSubmit.getUserId()) && !userService.isAdmin(loginUser)){
+        if (!userId.equals(questionSubmit.getUserId()) && !userService.isAdmin(loginUser)) {
             questionSubmitVO.setCode(null);
         }
         return questionSubmitVO;

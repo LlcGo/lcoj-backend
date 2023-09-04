@@ -6,14 +6,14 @@ import com.lc.oj.model.dto.user.UserQueryRequest;
 import com.lc.oj.model.entity.User;
 import com.lc.oj.model.vo.LoginUserVO;
 import com.lc.oj.model.vo.UserVO;
+
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 
 /**
  * 用户服务
- *
-
  */
 public interface UserService extends IService<User> {
 

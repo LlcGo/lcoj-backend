@@ -3,11 +3,12 @@ package com.lc.oj.judge.strategy;
 import cn.hutool.json.JSONUtil;
 import com.lc.oj.model.dto.question.JudgeCase;
 import com.lc.oj.model.dto.question.JudgeConfig;
-import com.lc.oj.model.dto.questionsubmit.JudgeInfo;
+import com.lc.oj.judge.codesandbox.model.JudgeInfo;
 import com.lc.oj.model.entity.Question;
 import com.lc.oj.model.enums.JudgeInfoMessageEnum;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @Author Lc
@@ -26,14 +27,14 @@ public class DefaultJudgeStrategy implements JudgeStrategy {
         Question question = context.getQuestion();
         List<JudgeCase> judgeCase = context.getJudgeCase();
 
-        Long memory = judgeInfo.getMemory();
-        Long time = judgeInfo.getTime();
+        Long memory = Optional.ofNullable(judgeInfo.getMemory()).orElse(0L);
+        Long time = Optional.ofNullable(judgeInfo.getTime()).orElse(0L);
         judgeInfo.setMemory(memory);
         judgeInfo.setTime(time);
 
         JudgeInfoMessageEnum judgeInfoMessage = JudgeInfoMessageEnum.ACCEPTED;
         //有输入就一定要有输出
-        if (output.size() != input.size()){
+        if (output.size() != input.size()) {
             judgeInfoMessage = JudgeInfoMessageEnum.RUNTIME_ERROR;
             judgeInfo.setMessage(judgeInfoMessage.getText());
             return judgeInfo;
@@ -42,7 +43,7 @@ public class DefaultJudgeStrategy implements JudgeStrategy {
         //判断结果是否相同
         for (int i = 0; i < judgeCase.size(); i++) {
             JudgeCase judgeCase1 = judgeCase.get(i);
-            if(!judgeCase1.getOutput().equals(output.get(i))){
+            if (!judgeCase1.getOutput().equals(output.get(i))) {
                 judgeInfoMessage = JudgeInfoMessageEnum.RUNTIME_ERROR;
                 judgeInfo.setMessage(judgeInfoMessage.getText());
                 return judgeInfo;
@@ -56,17 +57,17 @@ public class DefaultJudgeStrategy implements JudgeStrategy {
 
 
         //运行之后需要的时间
-        if(memory > needMemoryLimit){
+        if (memory > needMemoryLimit) {
             judgeInfoMessage = JudgeInfoMessageEnum.MEMORY_LIMIT_EXCEEDED;
             judgeInfo.setMessage(judgeInfoMessage.getText());
             return judgeInfo;
         }
-        if(time > needTimeLimit){
+        if (time > needTimeLimit) {
             judgeInfoMessage = JudgeInfoMessageEnum.TIME_LIMIT_EXCEEDED;
             judgeInfo.setMessage(judgeInfoMessage.getText());
             return judgeInfo;
         }
-        judgeInfo.setMessage(judgeInfoMessage.getText());
+        judgeInfo.setMessage(judgeInfoMessage.getValue());
         return judgeInfo;
     }
 }

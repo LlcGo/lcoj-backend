@@ -33,7 +33,6 @@ public interface QuestionService extends IService<Question> {
     QueryWrapper<Question> getQueryWrapper(QuestionQueryRequest questionQueryRequest);
 
 
-
     /**
      * 获取帖子封装
      *

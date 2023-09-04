@@ -3,12 +3,10 @@ package com.lc.oj.judge.codesandbox.impl;
 import com.lc.oj.judge.codesandbox.CodeSandbox;
 import com.lc.oj.judge.codesandbox.model.ExecuteCodeRequest;
 import com.lc.oj.judge.codesandbox.model.ExecuteCodeResponse;
-import com.lc.oj.model.dto.questionsubmit.JudgeInfo;
+import com.lc.oj.judge.codesandbox.model.JudgeInfo;
 import com.lc.oj.model.enums.JudgeInfoMessageEnum;
 import org.springframework.stereotype.Service;
 
-import javax.naming.ldap.ExtendedResponse;
-import java.util.Date;
 import java.util.List;
 
 /**

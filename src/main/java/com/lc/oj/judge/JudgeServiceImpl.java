@@ -1,7 +1,6 @@
 package com.lc.oj.judge;
 
 import cn.hutool.json.JSONUtil;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.lc.oj.common.ErrorCode;
 import com.lc.oj.exception.BusinessException;
 import com.lc.oj.judge.codesandbox.CodeSandbox;
@@ -9,26 +8,18 @@ import com.lc.oj.judge.codesandbox.CodeSandboxFactory;
 import com.lc.oj.judge.codesandbox.CodeSandboxProxy;
 import com.lc.oj.judge.codesandbox.model.ExecuteCodeRequest;
 import com.lc.oj.judge.codesandbox.model.ExecuteCodeResponse;
-import com.lc.oj.judge.strategy.DefaultJudgeStrategy;
 import com.lc.oj.judge.strategy.JudgeContext;
-import com.lc.oj.judge.strategy.JudgeStrategy;
 import com.lc.oj.model.dto.question.JudgeCase;
-import com.lc.oj.model.dto.question.JudgeConfig;
-import com.lc.oj.model.dto.questionsubmit.JudgeInfo;
+import com.lc.oj.judge.codesandbox.model.JudgeInfo;
 import com.lc.oj.model.entity.Question;
 import com.lc.oj.model.entity.QuestionSubmit;
-import com.lc.oj.model.enums.JudgeInfoMessageEnum;
 import com.lc.oj.model.enums.QuestionSubmitStatusEnum;
-import com.lc.oj.model.vo.QuestionSubmitVO;
 import com.lc.oj.service.QuestionService;
 import com.lc.oj.service.QuestionSubmitService;
-import me.chanjar.weixin.mp.bean.card.enums.BusinessServiceType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,28 +49,28 @@ public class JudgeServiceImpl implements JudgeService {
     public QuestionSubmit doJudge(long questionSubmitId) {
         //传入题目的提交id，获取对应的题目，提交信息（包含代码，编程语言等）
         QuestionSubmit questionSubmit = questionSubmitService.getById(questionSubmitId);
-        if(questionSubmit == null){
-            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR,"没有发现该提交的信息");
+        if (questionSubmit == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "没有发现该提交的信息");
         }
         Integer status = questionSubmit.getStatus();
         Long questionId = questionSubmit.getQuestionId();
 
         Question question = questionService.getById(questionId);
-        if(question == null){
-            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR,"没有该题目");
+        if (question == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "没有该题目");
         }
 
         //如果传入的状态不是等待中就不需要继续执行
-        if(!status.equals(QuestionSubmitStatusEnum.WAITING.getValue())){
-            throw new BusinessException(ErrorCode.OPERATION_ERROR,"题目不是等待允许状态");
+        if (!status.equals(QuestionSubmitStatusEnum.WAITING.getValue())) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "题目不是等待允许状态");
         }
         //开始执行沙箱前改变判题状态
         QuestionSubmit updateQuestionSubmit = new QuestionSubmit();
         updateQuestionSubmit.setId(questionSubmitId);
         updateQuestionSubmit.setStatus(QuestionSubmitStatusEnum.RUNNING.getValue());
         boolean update = questionSubmitService.updateById(updateQuestionSubmit);
-        if(!update){
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR,"题目状态更新出错");
+        if (!update) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目状态更新出错");
         }
         String language = questionSubmit.getLanguage();
         String code = questionSubmit.getCode();
@@ -115,7 +106,7 @@ public class JudgeServiceImpl implements JudgeService {
         updateQuestionSubmit.setStatus(QuestionSubmitStatusEnum.SUCCEED.getValue());
         updateQuestionSubmit.setJudgeInfo(JSONUtil.toJsonStr(returnJudgeInfo));
         boolean b = questionSubmitService.updateById(updateQuestionSubmit);
-        if(!b){
+        if (!b) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR);
         }
         return questionSubmitService.getById(questionSubmitId);

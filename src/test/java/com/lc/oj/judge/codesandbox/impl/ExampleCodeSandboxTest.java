@@ -31,10 +31,18 @@ public class ExampleCodeSandboxTest {
     @Test
     public void executeCodeByProxy() {
         CodeSandbox codeSandbox = CodeSandboxFactory.newInstance(type);
+        String code ="public class Main {\n" +
+                "    public static void main(String[] args) {\n" +
+                "          int a = Integer.parseInt(args[0]);\n" +
+                "          int b = Integer.parseInt(args[1]);\n" +
+                "          System.out.println(\"结果:\" + (a + b));\n" +
+                "    }\n" +
+                "}";
         CodeSandboxProxy codeSandboxProxy = new CodeSandboxProxy(codeSandbox);
         ExecuteCodeResponse executeCodeResponse = codeSandboxProxy.executeCode(ExecuteCodeRequest.builder()
-                .coed("555").language("java").input(Arrays.asList("12", "34")).build()
+                .coed(code).language("java").input(Arrays.asList("1 2", "3 4")).build()
         );
+        System.out.println(executeCodeResponse);
         Assertions.assertNotNull(executeCodeResponse);
     }
 

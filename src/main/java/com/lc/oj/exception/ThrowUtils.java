@@ -4,8 +4,6 @@ import com.lc.oj.common.ErrorCode;
 
 /**
  * 抛异常工具类
- *
-
  */
 public class ThrowUtils {
 

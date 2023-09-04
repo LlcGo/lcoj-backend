@@ -3,12 +3,11 @@ package com.lc.oj.model.enums;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * 文件上传业务类型枚举
- *
-
  */
 public enum FileUploadBizEnum {
 

@@ -12,7 +12,6 @@ import java.util.List;
 
 /**
  * 创建请求
- *
  */
 @Data
 public class QuestionAddRequest implements Serializable {
@@ -43,7 +42,6 @@ public class QuestionAddRequest implements Serializable {
     private Integer submitNum;
 
 
-
     /**
      * 判题用例（json）
      */
@@ -53,8 +51,6 @@ public class QuestionAddRequest implements Serializable {
      * 判题配置(json)
      */
     private JudgeConfig judgeConfig;
-
-
 
 
     @TableField(exist = false)

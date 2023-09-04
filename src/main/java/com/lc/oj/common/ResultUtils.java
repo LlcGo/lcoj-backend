@@ -2,8 +2,6 @@ package com.lc.oj.common;
 
 /**
  * 返回工具类
- *
-
  */
 public class ResultUtils {
 

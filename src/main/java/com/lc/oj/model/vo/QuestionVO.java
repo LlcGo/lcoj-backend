@@ -18,8 +18,6 @@ import java.util.List;
 
 /**
  * 帖子视图
- *
-
  */
 @Data
 public class QuestionVO implements Serializable {
@@ -117,7 +115,7 @@ public class QuestionVO implements Serializable {
             question.setTags(GSON.toJson(tagList));
         }
         JudgeConfig judgeConfig = questionVO.getJudgeConfig();
-        if(judgeConfig != null){
+        if (judgeConfig != null) {
             question.setJudgeConfig(GSON.toJson(judgeConfig));
         }
         return question;
@@ -137,7 +135,7 @@ public class QuestionVO implements Serializable {
         BeanUtils.copyProperties(question, questionVO);
         questionVO.setTags(GSON.fromJson(question.getTags(), new TypeToken<List<String>>() {
         }.getType()));
-        questionVO.setJudgeConfig(GSON.fromJson(question.getJudgeConfig(),new TypeToken<JudgeConfig>() {
+        questionVO.setJudgeConfig(GSON.fromJson(question.getJudgeConfig(), new TypeToken<JudgeConfig>() {
         }.getType()));
         return questionVO;
     }

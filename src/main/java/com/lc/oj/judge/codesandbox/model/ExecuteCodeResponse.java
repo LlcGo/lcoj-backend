@@ -1,7 +1,5 @@
 package com.lc.oj.judge.codesandbox.model;
 
-import com.lc.oj.model.dto.questionsubmit.JudgeInfo;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,12 +1,11 @@
 package com.lc.oj.model.dto.user;
 
 import java.io.Serializable;
+
 import lombok.Data;
 
 /**
  * 用户更新请求
- *
-
  */
 @Data
 public class UserUpdateRequest implements Serializable {

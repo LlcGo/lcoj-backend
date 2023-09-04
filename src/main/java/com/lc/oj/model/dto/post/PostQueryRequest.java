@@ -1,15 +1,15 @@
 package com.lc.oj.model.dto.post;
 
 import com.lc.oj.common.PageRequest;
+
 import java.io.Serializable;
 import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * 查询请求
- *
-
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

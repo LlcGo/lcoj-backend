@@ -10,15 +10,15 @@ import com.lc.oj.model.entity.PostThumb;
 import com.lc.oj.model.entity.User;
 import com.lc.oj.service.PostService;
 import com.lc.oj.service.PostThumbService;
+
 import javax.annotation.Resource;
+
 import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 帖子点赞服务实现
- *
-
  */
 @Service
 public class PostThumbServiceImpl extends ServiceImpl<PostThumbMapper, PostThumb>
